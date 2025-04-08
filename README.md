@@ -12,6 +12,8 @@
 | 2025-04-01 | 14:10 - 14:20   | 10 min   | Leonis   | Create Redis database        |
 | 2025-04-01 | 14:40 - 15:20   | 45 min   | Leonis   | Connection with Java and DataGrip        |
 | 2025-04-08 | 14:05 - 14:20   | 15 min   | Leonis   | Using Mockaroo for random Data Generation     |
+| 2025-04-08 | 14:25 - 14:40   | 15 min   | Leonis   | Inserted all data in Redis     |
+
 
 
 
