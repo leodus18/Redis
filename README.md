@@ -15,6 +15,10 @@
 | 2025-04-08 | 14:25 - 14:40   | 15 min   | Leonis   | Inserted all data in Redis     |
 | 2025-04-08 | 14:40 - 14:55   | 15 min   | Leonis   | Search in Java to find the data record using the key(uuid)     |
 | 2025-04-08 | 14:55 - 15:02   | 7 min   | Leonis   | Added: Measuring the time of the output how long it took to search     |
+| 2025-04-08 | 15:02 - 15:30   | 28 min   | Leonis   | Search in Java to find the data record using FirstName     |
+
+
+
 
 
 
