@@ -30,16 +30,19 @@ Search with uuid:
 
 I put the uuid of a user in the java so it gets searched. It searched the uuid and it didnt take long to find as u can see here it took only 32 ms. Also knowing uuid is a special id for every user it found the excat user thats being search.
 Data found for key 00158964-05cb-48dc-8a09-c808954f3943: {"firstName":"Aldus", "lastName":"Sandey", "age":71, "country":"China"}
+
 Search time 31 ms.
 
 Search with FirstName:
 
 I put the users FirstName in the java so it gets searched. It searched the FirstName going 1 by 1 of each user till it found the matching name. Also knowing the 1 or more users can have the same it will give the output of all the people with that name.
 As you can see here it took a long time more than the uuid search because it had to go thru all the users 1 by 1 checking thier FirstName to see if it matches the name that its searching for. It took 352402 ms and found 2 users with that FirstName.
+
 First name = "Osgood"...
 Match found. Key: 00190095-34d8-4ebe-be06-f195a4e5ea76 = {"firstName":"Osgood", "lastName":"Crowley", "age":58, "country":"China"}
 Match found. Key: 25322c80-2376-40c9-844f-620d08311936 = {"firstName":"Osgood", "lastName":"Baunton", "age":37, "country":"Thailand"}
 Found 2 matching data.
+
 Search took 352402 ms.
 
 
