@@ -17,6 +17,8 @@
 | 2025-04-08 | 14:55 - 15:02   | 7 min   | Leonis   | Added: Measuring the time of the output how long it took to search     |
 | 2025-04-08 | 15:02 - 15:30   | 28 min   | Leonis   | Search in Java to find the data record using FirstName     |
 | 2025-04-14 | 10:25 - 10:30   | 5 min   | Leonis   | Added: Measuring the time of the output how long it took to search    |
+| 2025-04-14 | 10:40 - 10:47   | 7 min   | Leonis   | Testing how long it took the search to finish    |
+
 
 
 
