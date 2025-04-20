@@ -49,3 +49,108 @@ Search took 352402 ms.
 
 
 
+
+Code:
+package org.example;
+
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.ScanParams;
+import redis.clients.jedis.resps.ScanResult;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.UUID;
+
+public class Main {
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("robust-cat-52911.upstash.io", 6379, true);
+        jedis.auth("Ac6vAAIjcDE0MDBkNzA2NWIxNTc0ZDc3YjllYWRkNTE4NDc5Mzk4YXAxMA");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(""))) {
+            String line;
+            br.readLine(); // skips header (column titles) first line
+
+            int count = 0;
+
+            while ((line = br.readLine()) != null) {  // loop through each line
+                String[] parts = line.split(",");
+
+                if (parts.length >= 4) {
+                    String firstName = parts[0];
+                    String lastName = parts[1];
+                    String age = parts[2];
+                    String country = parts[3];
+
+                    String uuid = UUID.randomUUID().toString();
+
+                    String json = String.format(
+                            "{\"firstName\":\"%s\", \"lastName\":\"%s\", \"age\":%s, \"country\":\"%s\"}",
+                            firstName, lastName, age, country
+                    );
+
+                    jedis.set(uuid, json);
+                    count++;
+                }
+            }
+
+            System.out.println(count + " records written to Redis.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String searchKey = "00158964-05cb-48dc-8a09-c808954f3943";
+
+        long startTime = System.nanoTime();
+        String result = jedis.get(searchKey);
+        long endTime = System.nanoTime();
+        long durationInMs = (endTime - startTime) / 1_000_000;
+
+        if (result != null) {
+            System.out.println("Data found for key " + searchKey + ": " + result);
+        } else {
+            System.out.println("No data found for key: " + searchKey);
+        }
+
+        System.out.println("Search time " + durationInMs + " ms.");
+
+
+
+        String targetFirstName = "Osgood";
+        System.out.println("\n First name = \"" + targetFirstName + "\"...");
+
+        long start = System.nanoTime();
+        int matchCount = 0;
+
+        String cursor = ScanParams.SCAN_POINTER_START; // (0) beginning of the key list
+        ScanParams scanParams = new ScanParams().match("*").count(100); // all keys, 100 per scan
+
+        //fetches some keys from Redis.
+        do {
+            ScanResult<String> scanResult = jedis.scan(cursor, scanParams);
+
+            // For every key, get the value
+            for (String key : scanResult.getResult()) {
+                String value = jedis.get(key);
+                if (value != null && value.contains("\"firstName\":\"" + targetFirstName + "\"")) {
+                    System.out.println("Match found. Key: " + key + " = " + value);
+                    matchCount++;
+                }
+            }
+
+            // Loop continues until the cursor says “0" (end)
+            cursor = scanResult.getCursor();
+        } while (!cursor.equals("0"));
+
+
+        long end = System.nanoTime();
+        long duration = (end - start) / 1_000_000;
+
+        System.out.println("Found " + matchCount + " matching data.");
+        System.out.println("Search took " + duration + " ms.");
+
+    }
+}
+
+
+
+
